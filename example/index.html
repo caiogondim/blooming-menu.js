@@ -3,6 +3,23 @@
 <head>
   <title></title>
   <style>
+    html {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
     .btn {
       border-radius: 50%;
       border: 1px solid #333333;
@@ -15,8 +32,6 @@
 
     .btn-main {
       position: absolute;
-      bottom: 10px;
-      left: 10px;
       transition: transform 0.2s linear;
       z-index: 1;
       outline: none;
@@ -37,7 +52,10 @@
       position: absolute;
       bottom: 10px;
       left: 10px;
-      transition: transform 0.1s linear;
+      transition: transform 0.1s ease-in-out;
+      /*width: 2px;
+      height: 2px;
+      background-color: black;*/
     }
 
     /*.btn-item.is-active {
@@ -46,37 +64,54 @@
   </style>
 </head>
 <body>
-  <button class="btn btn-main">X</button>
-  <ul class="menu-itens">
-    <li class="btn btn-item"></li>
-    <li class="btn btn-item"></li>
-    <li class="btn btn-item"></li>
-    <li class="btn btn-item"></li>
-  </ul>
+  <div class="container">
+    <button class="btn btn-main">X</button>
+    <ul class="menu-itens">
+      <li class="btn btn-item"></li>
+      <li class="btn btn-item"></li>
+      <li class="btn btn-item"></li>
+      <li class="btn btn-item"></li>
+      <li class="btn btn-item"></li>
+    </ul>
+  </div>
   <script>
     var btnMain = document.querySelector('.btn-main')
     var menuItens = document.querySelectorAll('.btn-item')
 
     var styleSheet = document.querySelector('style').sheet
 
+    var menuItensCoords = []
+    var radius = 150 // in px
+    var startAngle = -90
+    var endAngle = 0
+    var angleStep = (endAngle - startAngle) / (menuItens.length - 1)
+    var angleCur = startAngle
+    var itemWidth = 50
+    // var menuCoords = {x: 0, y: 0}
+
     //
-    var x = 0
-    var y = -150
     Array.prototype.forEach.call(menuItens, function(item, index) {
+      console.log('angleCur', angleCur)
       styleSheet.insertRule(
         '.btn-item:nth-child(0n+' + (index + 1) + ') {' +
           'transition-delay: ' + (index * 0.08) + 's;' +
         '}',
         0
       )
+
+      var x = radius * Math.cos(toRadians(angleCur))
+      var y = radius * Math.sin(toRadians(angleCur))
+
+      console.log('x', x)
+      console.log('y', y)
       styleSheet.insertRule(
         '.btn-item.is-active:nth-child(0n+' + (index + 1) + ') {' +
           'transform: translate(' + x + 'px, ' + y + 'px);' +
         '}',
         0
       )
-      x += 50
-      y += 50
+
+      angleCur += angleStep
     })
 
     btnMain.addEventListener('click', function(event) {
@@ -85,6 +120,10 @@
         item.classList.toggle('is-active')
       })
     })
+
+    function toRadians(angle) {
+      return angle * (Math.PI / 180)
+    }
   </script>
 </body>
 </html>
