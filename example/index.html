@@ -13,117 +13,63 @@
       height: 100%;
     }
 
-    .container {
+    .blooming-menu__container {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
     }
 
-    .btn {
+    .blooming-menu__cointainer,
+    .blooming-menu__cointainer * {
+      box-sizing: border-box;
+    }
+
+    .blooming-menu__main {
       border-radius: 50%;
       border: 1px solid #333333;
       width: 50px;
       height: 50px;
-      box-sizing: border-box;
-    }
-
-    /* btn-main ------------------------------------------------------------- */
-
-    .btn-main {
       position: absolute;
       transition: transform 0.2s linear;
       z-index: 1;
       outline: none;
+      cursor: pointer;
     }
 
-    .btn-main.is-active {
+    .blooming-menu__main.is-active {
       background-color: yellow;
       transform: rotate(90deg);
     }
 
-    /* btn-item ------------------------------------------------------------- */
-
-    .menu-itens {
+    .blooming-menu__itens {
       list-style-type: none;
     }
 
-    .btn-item {
+    .blooming-menu__item {
       position: absolute;
-      bottom: 10px;
-      left: 10px;
+      bottom: 5px;
+      left: 5px;
       transition: transform 0.1s ease-in-out;
-      /*width: 2px;
-      height: 2px;
-      background-color: black;*/
+      width: 40px;
+      height: 40px;
+      background-color: #333333;
+      border-radius: 50%;
     }
-
-    /*.btn-item.is-active {
-      transform: translate(0, -50px);
-    }*/
   </style>
 </head>
 <body>
-  <div class="container">
-    <button class="btn btn-main">X</button>
-    <ul class="menu-itens">
-      <li class="btn btn-item"></li>
-      <li class="btn btn-item"></li>
-      <li class="btn btn-item"></li>
-      <li class="btn btn-item"></li>
-      <li class="btn btn-item"></li>
-    </ul>
-  </div>
+  <script src='/src/index.js'></script>
   <script>
-    var btnMain = document.querySelector('.btn-main')
-    var menuItens = document.querySelectorAll('.btn-item')
-
-    var styleSheet = document.querySelector('style').sheet
-
-    var menuItensCoords = []
-    var radius = 150 // in px
-    var startAngle = -90
-    var endAngle = 0
-    var angleStep = (endAngle - startAngle) / (menuItens.length - 1)
-    var angleCur = startAngle
-    var itemWidth = 50
-    // var menuCoords = {x: 0, y: 0}
-
-    //
-    Array.prototype.forEach.call(menuItens, function(item, index) {
-      console.log('angleCur', angleCur)
-      styleSheet.insertRule(
-        '.btn-item:nth-child(0n+' + (index + 1) + ') {' +
-          'transition-delay: ' + (index * 0.08) + 's;' +
-        '}',
-        0
-      )
-
-      var x = radius * Math.cos(toRadians(angleCur))
-      var y = radius * Math.sin(toRadians(angleCur))
-
-      console.log('x', x)
-      console.log('y', y)
-      styleSheet.insertRule(
-        '.btn-item.is-active:nth-child(0n+' + (index + 1) + ') {' +
-          'transform: translate(' + x + 'px, ' + y + 'px);' +
-        '}',
-        0
-      )
-
-      angleCur += angleStep
+    var bloomingMenu = new BloomingMenu({
+      startAngle: -90,
+      endAngle: 90,
+      radius: 150,
+      itensNum: 5
     })
-
-    btnMain.addEventListener('click', function(event) {
-      this.classList.toggle('is-active')
-      Array.prototype.forEach.call(menuItens, function(item) {
-        item.classList.toggle('is-active')
-      })
-    })
-
-    function toRadians(angle) {
-      return angle * (Math.PI / 180)
-    }
+    bloomingMenu.render()
   </script>
 </body>
 </html>
