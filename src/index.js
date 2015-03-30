@@ -136,10 +136,13 @@ var BloomingMenu = (function() {
         item.classList.toggle('is-active')
       })
     })
+
+    props.elements.main.addEventListener('touchstart', function() {})
   }
 
   function unbindEventListeners (elements) {
-    elements.removeEventListener('click')
+    elements.main.removeEventListener('click')
+    elements.main.removeEventListener('touchstart')
   }
 
   function removeElements (elements) {

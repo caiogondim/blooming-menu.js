@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
   <meta charset="utf-8">
   <title></title>
   <style>
@@ -25,6 +26,10 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
     
     .blooming-menu__container:hover {
@@ -34,6 +39,7 @@
     .blooming-menu__container,
     .blooming-menu__container * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 
     .blooming-menu__main-container {
@@ -117,10 +123,16 @@
     var bloomingMenu = new BloomingMenu({
       startAngle: 0,
       endAngle: 315,
-      radius: 150,
+      radius: 100,
       itensNum: 8
     })
     bloomingMenu.render()
+
+    // Prevents "elastic scrolling" on Safari
+    document.addEventListener('touchmove', function(event) {
+      'use strict'
+      event.preventDefault()
+    })
   </script>
 </body>
 </html>
