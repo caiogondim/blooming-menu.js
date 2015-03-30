@@ -18,10 +18,8 @@
 
     .blooming-menu__container {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      -webkit-transform: translate(-50%, -50%);
-              transform: translate(-50%, -50%);
+      left: 25px;
+      bottom: 25px;
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -115,10 +113,10 @@
   <script src='/src/index.js'></script>
   <script>
     var bloomingMenu = new BloomingMenu({
-      startAngle: 0,
-      endAngle: 315,
+      startAngle: -90,
+      endAngle: 0,
       radius: 150,
-      itensNum: 8
+      itensNum: 4
     })
     bloomingMenu.render()
   </script>
