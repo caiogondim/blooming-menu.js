@@ -47,6 +47,7 @@ var BloomingMenu = (function() {
     this.props.itemWidth = props.itemWidth || 50
     this.props.containerCSSClass = props.containerCSSClass || 'blooming-menu__container'
     this.props.mainCSSClass = props.mainCSSClass || 'blooming-menu__main'
+    this.props.mainContent = props.mainContent || '+'
     this.props.itensContainerCSSClass = props.itensContainerCSSClass || 'blooming-menu__itens'
     this.props.itensCSSClass = props.itensCSSClass || 'blooming-menu__item'
   }
@@ -63,9 +64,16 @@ var BloomingMenu = (function() {
     props.elements.container.classList.add(props.containerCSSClass)
 
     // Creates main element
+    props.elements.mainContainer = document.createElement('div')
+    props.elements.mainContainer.classList.add('blooming-menu__main-container')
     props.elements.main = document.createElement('button')
     props.elements.main.classList.add(props.mainCSSClass)
-    props.elements.container.appendChild(props.elements.main)
+    props.elements.mainContent = document.createElement('span')
+    props.elements.mainContent.classList.add('blooming-menu__main-content')
+    props.elements.mainContent.innerHTML = props.mainContent
+    props.elements.mainContainer.appendChild(props.elements.main)
+    props.elements.main.appendChild(props.elements.mainContent)
+    props.elements.container.appendChild(props.elements.mainContainer)
 
     // Creates itens
     props.elements.itens = []
@@ -75,6 +83,9 @@ var BloomingMenu = (function() {
     for (var i = 0; i < props.itensNum; i++) {
       var item = document.createElement('li')
       item.classList.add(props.itensCSSClass)
+      var button = document.createElement('button')
+      button.classList.add('blooming-menu__item-btn')
+      item.appendChild(button)
       props.elements.itensContainer.appendChild(item)
       props.elements.itens.push(item)
     }

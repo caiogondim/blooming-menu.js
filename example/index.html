@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title></title>
   <style>
     html {
@@ -11,6 +12,7 @@
     body {
       width: 100%;
       height: 100%;
+      background-color: #FAFAFA;
     }
 
     .blooming-menu__container {
@@ -20,28 +22,57 @@
       transform: translate(-50%, -50%);
       width: 50px;
       height: 50px;
+      border-radius: 50%;
+    }
+    
+    .blooming-menu__container:hover {
+      
     }
 
-    .blooming-menu__cointainer,
-    .blooming-menu__cointainer * {
+    .blooming-menu__container,
+    .blooming-menu__container * {
       box-sizing: border-box;
+    }
+
+    .blooming-menu__main-container {
+      transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .blooming-menu__main-container:hover {
+      box-shadow: 0 8px 17px 0 rgba(0,0,0,.2);
     }
 
     .blooming-menu__main {
       border-radius: 50%;
-      border: 1px solid #333333;
       width: 50px;
       height: 50px;
       position: absolute;
-      transition: transform 0.2s linear;
       z-index: 1;
       outline: none;
       cursor: pointer;
+      transition: all .28s cubic-bezier(.4,0,.2,1);
+      border: none;
+      background-color: #FF4081;
+      color: white;
     }
 
     .blooming-menu__main.is-active {
-      background-color: yellow;
-      transform: rotate(90deg);
+      transform: rotate(45deg);
+    }
+
+    .blooming-menu__main-content {
+      font-size: 32px;
+      line-height: 60%;
+      position: relative;
+      top: -1px;
+    }
+
+    .blooming-menu__main.is-active .blooming-menu__main-content {
+      transform: rotate(45deg);
     }
 
     .blooming-menu__itens {
@@ -52,12 +83,47 @@
       position: absolute;
       bottom: 5px;
       left: 5px;
-      transition: transform 0.1s ease-in-out;
+      transition: transform .28s cubic-bezier(.4,0,.2,1);
       width: 40px;
       height: 40px;
-      background-color: #333333;
+      background-color: #AB47BC;
       border-radius: 50%;
     }
+
+    .blooming-menu__item-btn {
+      cursor: pointer;
+      border-radius: 50%;
+      border: none;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+    }
+
+    .blooming-menu__item-btn:hover {
+      box-shadow: 0 8px 17px 0 rgba(0,0,0,.2); 
+    }
+
+/*    .blooming-menu__item:nth-child(0n+1) {
+      background-color: #AB47BC;
+    }
+
+    .blooming-menu__item:nth-child(0n+2) {
+      background-color: #1B39A8;
+    }
+
+    .blooming-menu__item:nth-child(0n+3) {
+      background-color: #FECC4E;
+    }
+
+    .blooming-menu__item:nth-child(0n+4) {
+      background-color: #FF5252;
+    }
+
+    .blooming-menu__item:nth-child(0n+5) {
+      background-color: #FFAB91;
+    }*/
   </style>
 </head>
 <body>
