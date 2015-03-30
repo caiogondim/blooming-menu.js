@@ -13,13 +13,15 @@
       width: 100%;
       height: 100%;
       background-color: #FAFAFA;
+      overflow: hidden;
     }
 
     .blooming-menu__container {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -61,7 +63,8 @@
     }
 
     .blooming-menu__main.is-active {
-      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
     }
 
     .blooming-menu__main-content {
@@ -72,7 +75,8 @@
     }
 
     .blooming-menu__main.is-active .blooming-menu__main-content {
-      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
     }
 
     .blooming-menu__itens {
@@ -83,6 +87,7 @@
       position: absolute;
       bottom: 5px;
       left: 5px;
+      transition: -webkit-transform .28s cubic-bezier(.4,0,.2,1);
       transition: transform .28s cubic-bezier(.4,0,.2,1);
       width: 40px;
       height: 40px;

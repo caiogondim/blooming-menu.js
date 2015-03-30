@@ -100,18 +100,22 @@ var BloomingMenu = (function() {
 
     props.elements.itens.forEach(function (item, index) {
       props.elements.styleSheet.sheet.insertRule(
-        '.' + props.itensCSSClass + ':nth-child(0n+' + (index + 1) + ') {' +
+        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
           'transition-delay: ' + (index * props.itemAnimationDelay) + 's;' +
+          '-webkit-transition-delay: ' + (index * props.itemAnimationDelay) + 's;' +
         '}',
         0
       )
 
       var x = props.radius * Math.cos(toRadians(angleCur))
       var y = props.radius * Math.sin(toRadians(angleCur))
+      x = String((x).toFixed(2)) + 'px'
+      y = String((y).toFixed(2)) + 'px'
 
       props.elements.styleSheet.sheet.insertRule(
-        '.' + props.itensCSSClass + '.is-active:nth-child(0n+' + (index + 1) + ') {' +
-          'transform: translate(' + x + 'px, ' + y + 'px);' +
+        '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
+          'transform: translate(' + x + ', ' + y + ');' +
+          '-webkit-transform: translate(' + x + ', ' + y + ');' +
         '}',
         0
       )
