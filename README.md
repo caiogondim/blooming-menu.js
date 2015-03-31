@@ -1,4 +1,6 @@
-# awesome-menu
+<img src="http://rawgit.com/caiogondim/blooming-menu/master/logo/logo.svg">
+
+# BloomingMenu
 AwesomeMenu made with CSS
 
 ## Credits
