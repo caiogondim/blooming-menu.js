@@ -4,5 +4,6 @@
 AwesomeMenu made with CSS
 
 ## Credits
-
-This lib is a port in HTML of the Objective-C lib [AwesomeMenu](https://github.com/levey/AwesomeMenu)
+- Icon by Chamaquito Pan de Dulce
+- Inspired by Material Design
+- This lib is a port in JavaScript of the Objective-C lib [AwesomeMenu](https://github.com/levey/AwesomeMenu)
