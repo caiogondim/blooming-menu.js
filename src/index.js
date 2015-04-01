@@ -9,6 +9,11 @@ var BloomingMenu = (function() {
 
     this.props = {}
     setProps.call(this, opts)
+
+    this.state = {
+      isOpen: false,
+      isBeingAnimated: false
+    }
   }
 
   // Public
@@ -17,13 +22,55 @@ var BloomingMenu = (function() {
   BloomingMenu.prototype.render = function() {
     createElements(this.props)
     setAnimation(this.props)
-    bindEventListeners(this.props)
+    bindEventListeners(this)
   };
 
   BloomingMenu.prototype.remove = function() {
-    unbindEventListeners(this.props.elements)
-    removeElements(this.props.elements)
+    unbindEventListeners(this)
+    removeElements(this)
   };
+
+  BloomingMenu.prototype.open = function () {
+    this.props.elements.main.classList.add('is-active')
+
+    this.props.elements.itens.forEach(function (item) {
+      item.classList.remove('is-selected')
+      item.classList.add('is-active')
+    })
+
+    this.state.isOpen = true
+  };
+
+  BloomingMenu.prototype.close = function () {
+    this.props.elements.main.classList.remove('is-active')
+
+    this.props.elements.itens.forEach(function (item) {
+      item.classList.remove('is-active')
+    })
+
+    this.state.isOpen = false
+  };
+
+  // BloomingMenu.prototype.selectItem = function (index) {
+  //   var self = this
+
+  //   this.close()
+
+  //   this.props.elements.itens.forEach(function (item, index_) {
+  //     if (index_ !== index) {
+  //       item.classList.add('is-not-selected')
+  //     }
+  //     item.classList.remove('is-active')
+  //   })
+  //   this.props.elements.itens[index].classList.add('is-selected')
+  //   this.props.elements.itens[index].addEventListener('transitionend', function (event) {
+  //     self.props.elements.itens.forEach(function (item) {
+  //       item.classList.remove('is-selected')
+  //       item.classList.remove('is-not-selected')
+  //     })
+  //     event.target.removeEventListener('transitionend')
+  //   })
+  // };
 
   // Private
   // -------
@@ -93,12 +140,18 @@ var BloomingMenu = (function() {
     props.fatherElement.appendChild(props.elements.container)
   }
 
+  // XXX: Do only one insertion on DOM
   function setAnimation (props) {
     var angleStep =
       (props.endAngle - props.startAngle) / (props.itensNum - 1)
     var angleCur = props.startAngle
 
     props.elements.itens.forEach(function (item, index) {
+      var x = props.radius * Math.cos(toRadians(angleCur))
+      var y = props.radius * Math.sin(toRadians(angleCur))
+      x = String((x).toFixed(2))
+      y = String((y).toFixed(2))
+
       props.elements.styleSheet.sheet.insertRule(
         '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
           'transition-delay: ' + (index * props.itemAnimationDelay) + 's;' +
@@ -107,20 +160,34 @@ var BloomingMenu = (function() {
         0
       )
 
-      var x = props.radius * Math.cos(toRadians(angleCur))
-      var y = props.radius * Math.sin(toRadians(angleCur))
-      x = String((x).toFixed(2)) + 'px'
-      y = String((y).toFixed(2)) + 'px'
-
       props.elements.styleSheet.sheet.insertRule(
         '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
-          'transform: translate(' + x + ', ' + y + ');' +
-          '-webkit-transform: translate(' + x + ', ' + y + ');' +
+          'transform: translate(' + x + 'px, ' + y + 'px);' +
+          '-webkit-transform: translate(' + x + 'px, ' + y + 'px);' +
         '}',
         0
       )
 
-      angleCur += angleStep
+      props.elements.styleSheet.sheet.insertRule(
+        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ').is-selected {' +
+          'transform: translate(' + x + 'px, ' + y + 'px) scale(2, 2);' +
+          '-webkit-transform: translate(' + x + 'px, ' + y + 'px) scale(2, 2);' +
+          'transition-delay: 0;' +
+          'opacity: 0;' +
+        '}',
+        0
+      )
+
+      props.elements.styleSheet.sheet.insertRule(
+        'body .' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ').is-not-selected {' +
+          'transform: translate(' + x + 'px, ' + y + 'px) scale(0, 0);' +
+          '-webkit-transform: translate(' + x + 'px, ' + y + 'px) scale(0, 0);' +
+          'transition-delay: 0;' +
+        '}',
+        0
+      )
+
+        angleCur += angleStep
     })
   }
 
@@ -128,25 +195,32 @@ var BloomingMenu = (function() {
     return angle * (Math.PI / 180)
   }
 
-  function bindEventListeners (props) {
-    props.elements.main.addEventListener('click', function (event) {
-      this.classList.toggle('is-active')
-
-      props.elements.itens.forEach(function (item) {
-        item.classList.toggle('is-active')
-      })
-    })
-
-    props.elements.main.addEventListener('touchstart', function() {})
-  }
-
-  function unbindEventListeners (elements) {
-    elements.main.removeEventListener('click')
-    elements.main.removeEventListener('touchstart')
-  }
-
   function removeElements (elements) {
     elements.container.parentNode.removeChild(elements.container)
+  }
+
+  // ---------------------------------------------------------------------------
+  // Event listeners
+
+  function bindEventListeners (self) {
+    self.props.elements.main.addEventListener('click', function (event) {
+      if (self.state.isOpen) {
+        self.close()
+      } else {
+        self.open()
+      }
+    })
+
+    // self.props.elements.itens.forEach(function (item, index) {
+    //   item.addEventListener('click', function (event) {
+    //     self.selectItem(index)
+    //   })
+    // })
+  }
+
+  function unbindEventListeners (self) {
+    self.props.elements.main.removeEventListener('click')
+    self.props.elements.main.removeEventListener('touchstart')
   }
 
   return BloomingMenu;
