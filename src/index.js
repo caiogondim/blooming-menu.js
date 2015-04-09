@@ -35,8 +35,6 @@ var BloomingMenu = (function() {
 
     this.props.elements.itens.forEach(function (item) {
       item.classList.remove('is-selected')
-      item.classList.remove('is-inactive')
-      // item.offsetWidth = item.offsetWidth
       item.classList.add('is-active')
     })
 
@@ -49,8 +47,6 @@ var BloomingMenu = (function() {
 
     this.props.elements.itens.forEach(function (item) {
       item.classList.remove('is-active')
-      // item.offsetWidth = item.offsetWidth
-      item.classList.add('is-inactive')
     })
 
     this.state.isOpen = false
@@ -94,6 +90,7 @@ var BloomingMenu = (function() {
     this.props.endAngle = props.endAngle === undefined ? 0 : props.endAngle
     this.props.radius = props.radius || 80
     this.props.itemAnimationDelay = props.itemAnimationDelay || 0.04
+    this.props.animationDuration = props.animationDuration || 0.4
     this.props.fatherElement = props.fatherElement || document.body
     this.props.elements = {}
     this.props.itemWidth = props.itemWidth || 50
@@ -135,6 +132,7 @@ var BloomingMenu = (function() {
     for (var i = 0; i < props.itensNum; i++) {
       var item = document.createElement('li')
       item.classList.add(props.itensCSSClass)
+      item.style.opacity = 0
       var button = document.createElement('button')
       button.classList.add('blooming-menu__item-btn')
       item.appendChild(button)
@@ -143,6 +141,13 @@ var BloomingMenu = (function() {
     }
 
     props.fatherElement.appendChild(props.elements.container)
+
+    // Prevents the first animation when the elements are rendered
+    setTimeout(function() {
+      props.elements.itens.forEach(function(item) {
+        item.style.opacity = 1
+      })
+    }, ((props.itemAnimationDelay * props.itensNum) + props.animationDuration) * 1000)
   }
 
   // XXX: Do only one insertion on DOM
@@ -198,8 +203,10 @@ var BloomingMenu = (function() {
         '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
           'animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
           '-webkit-animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
-          'animation-duration: 0.4s;' +
+          'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
+          'animation-name: contract-item-' + index + ';' +
+          'animation-fill-mode: backwards;' +
         '}',
         0
       )
@@ -207,14 +214,6 @@ var BloomingMenu = (function() {
       props.elements.styleSheet.sheet.insertRule(
         '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
           'animation-name: expand-item-' + index + ';' +
-          'animation-fill-mode: forwards;' +
-        '}',
-        0
-      )
-
-      props.elements.styleSheet.sheet.insertRule(
-        '.' + props.itensCSSClass + '.is-inactive:nth-of-type(' + (index + 1) + ') {' +
-          'animation-name: contract-item-' + index + ';' +
           'animation-fill-mode: forwards;' +
         '}',
         0
