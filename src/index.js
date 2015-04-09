@@ -35,6 +35,8 @@ var BloomingMenu = (function() {
 
     this.props.elements.itens.forEach(function (item) {
       item.classList.remove('is-selected')
+      item.classList.remove('is-inactive')
+      // item.offsetWidth = item.offsetWidth
       item.classList.add('is-active')
     })
 
@@ -43,9 +45,12 @@ var BloomingMenu = (function() {
 
   BloomingMenu.prototype.close = function () {
     this.props.elements.main.classList.remove('is-active')
+    this.props.elements.main.classList.add('is-inactive')
 
     this.props.elements.itens.forEach(function (item) {
       item.classList.remove('is-active')
+      // item.offsetWidth = item.offsetWidth
+      item.classList.add('is-inactive')
     })
 
     this.state.isOpen = false
@@ -88,7 +93,7 @@ var BloomingMenu = (function() {
     this.props.startAngle = props.startAngle === undefined ? 90 : props.startAngle
     this.props.endAngle = props.endAngle === undefined ? 0 : props.endAngle
     this.props.radius = props.radius || 80
-    this.props.itemAnimationDelay = props.itemAnimationDelay || 0.08
+    this.props.itemAnimationDelay = props.itemAnimationDelay || 0.04
     this.props.fatherElement = props.fatherElement || document.body
     this.props.elements = {}
     this.props.itemWidth = props.itemWidth || 50
@@ -149,21 +154,70 @@ var BloomingMenu = (function() {
     props.elements.itens.forEach(function (item, index) {
       var x = props.radius * Math.cos(toRadians(angleCur))
       var y = props.radius * Math.sin(toRadians(angleCur))
-      x = String((x).toFixed(2))
-      y = String((y).toFixed(2))
+      var x3 = Number((x).toFixed(2))
+      var y3 = Number((y).toFixed(2))
+      var x2 = x3 * 1.2
+      var y2 = y3 * 1.2
+      var x1 = x3 * 0.7
+      var y1 = y3 * 0.7
+      var x0 = 0
+      var y0 = 0
+
+      // Animation
+      props.elements.styleSheet.sheet.insertRule(
+        '@keyframes expand-item-' + index + ' {' +
+          '0% {' +
+            'transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
+          '}' +
+          '70% {' +
+            'transform: translate(' + x2 + 'px, ' + y2 + 'px)' +
+          '}' +
+          '100% {' +
+            'transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
+          '}' +
+        '}',
+        0
+      )
+
+      props.elements.styleSheet.sheet.insertRule(
+        '@keyframes contract-item-' + index + ' {' +
+          '100% {' +
+            'transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
+          '}' +
+          '70% {' +
+            'transform: translate(' + x2 + 'px, ' + y2 + 'px)' +
+          '}' +
+          '0% {' +
+            'transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
+          '}' +
+        '}',
+        0
+      )
 
       props.elements.styleSheet.sheet.insertRule(
         '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
-          'transition-delay: ' + (index * props.itemAnimationDelay) + 's;' +
-          '-webkit-transition-delay: ' + (index * props.itemAnimationDelay) + 's;' +
+          'animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
+          '-webkit-animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
         '}',
         0
       )
 
       props.elements.styleSheet.sheet.insertRule(
         '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
-          'transform: translate(' + x + 'px, ' + y + 'px);' +
-          '-webkit-transform: translate(' + x + 'px, ' + y + 'px);' +
+          'animation-name: expand-item-' + index + ';' +
+          'animation-duration: 0.4s;' +
+          'animation-timing-function: ease-out;' +
+          'animation-fill-mode: forwards;' +
+        '}',
+        0
+      )
+
+      props.elements.styleSheet.sheet.insertRule(
+        '.' + props.itensCSSClass + '.is-inactive:nth-of-type(' + (index + 1) + ') {' +
+          'animation-name: contract-item-' + index + ';' +
+          'animation-duration: 0.4s;' +
+          'animation-timing-function: ease-out;' +
+          'animation-fill-mode: forwards;' +
         '}',
         0
       )
