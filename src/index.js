@@ -184,7 +184,7 @@ var BloomingMenu = (function() {
           '100% {' +
             'transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
           '}' +
-          '70% {' +
+          '30% {' +
             'transform: translate(' + x2 + 'px, ' + y2 + 'px)' +
           '}' +
           '0% {' +
@@ -198,6 +198,8 @@ var BloomingMenu = (function() {
         '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
           'animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
           '-webkit-animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
+          'animation-duration: 0.4s;' +
+          'animation-timing-function: ease-out;' +
         '}',
         0
       )
@@ -205,8 +207,6 @@ var BloomingMenu = (function() {
       props.elements.styleSheet.sheet.insertRule(
         '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
           'animation-name: expand-item-' + index + ';' +
-          'animation-duration: 0.4s;' +
-          'animation-timing-function: ease-out;' +
           'animation-fill-mode: forwards;' +
         '}',
         0
@@ -215,8 +215,6 @@ var BloomingMenu = (function() {
       props.elements.styleSheet.sheet.insertRule(
         '.' + props.itensCSSClass + '.is-inactive:nth-of-type(' + (index + 1) + ') {' +
           'animation-name: contract-item-' + index + ';' +
-          'animation-duration: 0.4s;' +
-          'animation-timing-function: ease-out;' +
           'animation-fill-mode: forwards;' +
         '}',
         0
