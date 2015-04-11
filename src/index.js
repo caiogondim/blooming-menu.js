@@ -34,6 +34,7 @@ var BloomingMenu = (function() {
     this.props.elements.main.classList.add('is-active')
 
     this.props.elements.itens.forEach(function (item) {
+      item.style.display = 'block'
       item.classList.remove('is-selected')
       item.classList.add('is-active')
     })
@@ -49,29 +50,47 @@ var BloomingMenu = (function() {
       item.classList.remove('is-active')
     })
 
+    //
+    var btnWrapper = document.querySelectorAll('.blooming-menu__item-btn-wrapper')
+    ;[].forEach.call(btnWrapper, function(btnWrapper) {
+      btnWrapper.classList.remove('is-selected')
+      btnWrapper.classList.remove('is-not-selected')
+    })
+
     this.state.isOpen = false
   };
 
-  // BloomingMenu.prototype.selectItem = function (index) {
-  //   var self = this
+  BloomingMenu.prototype.selectItem = function (index) {
+    var self = this
 
-  //   this.close()
+    //
+    var btnWrappers = document.querySelector('.blooming-menu__item-btn-wrapper')
+    btnWrappers.addEventListener('animationend', function() {
+      self.close()
 
-  //   this.props.elements.itens.forEach(function (item, index_) {
-  //     if (index_ !== index) {
-  //       item.classList.add('is-not-selected')
-  //     }
-  //     item.classList.remove('is-active')
-  //   })
-  //   this.props.elements.itens[index].classList.add('is-selected')
-  //   this.props.elements.itens[index].addEventListener('transitionend', function (event) {
-  //     self.props.elements.itens.forEach(function (item) {
-  //       item.classList.remove('is-selected')
-  //       item.classList.remove('is-not-selected')
-  //     })
-  //     event.target.removeEventListener('transitionend')
-  //   })
-  // };
+      self.props.elements.itens.forEach(function (item) {
+        item.style.display = 'none'
+      })
+
+      document
+        .querySelector('.blooming-menu__item-btn-wrapper')
+        .removeEventListener('animationend')
+    })
+
+    this.props.elements.itens.forEach(function (item, index_) {
+      if (index_ !== index) {
+        item
+          .querySelector('.blooming-menu__item-btn-wrapper')
+          .classList
+          .add('is-not-selected')
+      } else {
+        item
+          .querySelector('.blooming-menu__item-btn-wrapper')
+          .classList
+          .add('is-selected')
+      }
+    })
+  };
 
   // Private
   // -------
@@ -133,9 +152,15 @@ var BloomingMenu = (function() {
       var item = document.createElement('li')
       item.classList.add(props.itensCSSClass)
       item.style.opacity = 0
+
+      var buttonWrapper = document.createElement('div')
+      buttonWrapper.classList.add('blooming-menu__item-btn-wrapper')
+
       var button = document.createElement('button')
       button.classList.add('blooming-menu__item-btn')
-      item.appendChild(button)
+
+      buttonWrapper.appendChild(button)
+      item.appendChild(buttonWrapper)
       props.elements.itensContainer.appendChild(item)
       props.elements.itens.push(item)
     }
@@ -212,22 +237,47 @@ var BloomingMenu = (function() {
         '}'
 
       cssRules +=
-        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ').is-selected {' +
-          'transform: translate(' + x + 'px, ' + y + 'px) scale(2, 2);' +
-          '-webkit-transform: translate(' + x + 'px, ' + y + 'px) scale(2, 2);' +
-          'transition-delay: 0;' +
-          'opacity: 0;' +
+        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-selected {' +
+          'animation-name: select-item;' +
+          'animation-fill-mode: forwards;' +
+          'animation-duration: ' + props.animationDuration + 's;' +
+          'animation-timing-function: ease-out;' +
         '}'
 
       cssRules +=
-        'body .' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ').is-not-selected {' +
-          'transform: translate(' + x + 'px, ' + y + 'px) scale(0, 0);' +
-          '-webkit-transform: translate(' + x + 'px, ' + y + 'px) scale(0, 0);' +
-          'transition-delay: 0;' +
+        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-not-selected {' +
+          'animation-name: not-select-item;' +
+          'animation-fill-mode: forwards;' +
+          'animation-duration: ' + props.animationDuration + 's;' +
+          'animation-timing-function: ease-out;' +
         '}'
 
       angleCur += angleStep
     })
+
+    cssRules +=
+      '@keyframes select-item {' +
+        '0% {' +
+          'transform: scale(1);' +
+          'opacity: 1;' +
+        '}' +
+        '100% {' +
+          'transform: scale(2);' +
+          'opacity: 0;' +
+        '}' +
+      '}'
+
+    cssRules +=
+      '@keyframes not-select-item {' +
+        '0% {' +
+          'transform: scale(1);' +
+          'opacity: 1;' +
+        '}' +
+        '100% {' +
+          'transform: scale(0);' +
+          'opacity: 0;' +
+        '}' +
+      '}'
 
     props.elements.styleSheet.innerHTML = cssRules
   }
@@ -252,11 +302,11 @@ var BloomingMenu = (function() {
       }
     })
 
-    // self.props.elements.itens.forEach(function (item, index) {
-    //   item.addEventListener('click', function (event) {
-    //     self.selectItem(index)
-    //   })
-    // })
+    self.props.elements.itens.forEach(function (item, index) {
+      item.addEventListener('click', function (event) {
+        self.selectItem(index)
+      })
+    })
   }
 
   function unbindEventListeners (self) {
