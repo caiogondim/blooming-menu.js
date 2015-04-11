@@ -150,11 +150,11 @@ var BloomingMenu = (function() {
     }, ((props.itemAnimationDelay * props.itensNum) + props.animationDuration) * 1000)
   }
 
-  // XXX: Do only one insertion on DOM
   function setAnimation (props) {
     var angleStep =
       (props.endAngle - props.startAngle) / (props.itensNum - 1)
     var angleCur = props.startAngle
+    var cssRules = ''
 
     props.elements.itens.forEach(function (item, index) {
       var x = props.radius * Math.cos(toRadians(angleCur))
@@ -169,7 +169,7 @@ var BloomingMenu = (function() {
       var y0 = 0
 
       // Animation
-      props.elements.styleSheet.sheet.insertRule(
+      cssRules +=
         '@keyframes expand-item-' + index + ' {' +
           '0% {' +
             'transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
@@ -180,11 +180,9 @@ var BloomingMenu = (function() {
           '100% {' +
             'transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
           '}' +
-        '}',
-        0
-      )
+        '}'
 
-      props.elements.styleSheet.sheet.insertRule(
+      cssRules +=
         '@keyframes contract-item-' + index + ' {' +
           '100% {' +
             'transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
@@ -195,11 +193,9 @@ var BloomingMenu = (function() {
           '0% {' +
             'transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
           '}' +
-        '}',
-        0
-      )
+        '}'
 
-      props.elements.styleSheet.sheet.insertRule(
+      cssRules +=
         '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
           'animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
           '-webkit-animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
@@ -207,39 +203,33 @@ var BloomingMenu = (function() {
           'animation-timing-function: ease-out;' +
           'animation-name: contract-item-' + index + ';' +
           'animation-fill-mode: backwards;' +
-        '}',
-        0
-      )
+        '}'
 
-      props.elements.styleSheet.sheet.insertRule(
+      cssRules +=
         '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
           'animation-name: expand-item-' + index + ';' +
           'animation-fill-mode: forwards;' +
-        '}',
-        0
-      )
+        '}'
 
-      props.elements.styleSheet.sheet.insertRule(
+      cssRules +=
         '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ').is-selected {' +
           'transform: translate(' + x + 'px, ' + y + 'px) scale(2, 2);' +
           '-webkit-transform: translate(' + x + 'px, ' + y + 'px) scale(2, 2);' +
           'transition-delay: 0;' +
           'opacity: 0;' +
-        '}',
-        0
-      )
+        '}'
 
-      props.elements.styleSheet.sheet.insertRule(
+      cssRules +=
         'body .' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ').is-not-selected {' +
           'transform: translate(' + x + 'px, ' + y + 'px) scale(0, 0);' +
           '-webkit-transform: translate(' + x + 'px, ' + y + 'px) scale(0, 0);' +
           'transition-delay: 0;' +
-        '}',
-        0
-      )
+        '}'
 
-        angleCur += angleStep
+      angleCur += angleStep
     })
+
+    props.elements.styleSheet.innerHTML = cssRules
   }
 
   function toRadians (angle) {
