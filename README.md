@@ -4,7 +4,7 @@
 AwesomeMenu made with CSS
 
 ## Credits
-- Icon by Chamaquito Pan de Dulce
-- Inspired by Material Design
+- Project icon by Chamaquito Pan de Dulce
+- Menu items by [Google Material Design](https://github.com/google/material-design-icons)
 - [Base16](https://github.com/chriskempson/base16) Ocean color scheme
 - This lib is a port in JavaScript of the Objective-C lib [AwesomeMenu](https://github.com/levey/AwesomeMenu)
