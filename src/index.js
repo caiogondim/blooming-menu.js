@@ -65,7 +65,7 @@ var BloomingMenu = (function() {
 
     //
     var btnWrappers = document.querySelector('.blooming-menu__item-btn-wrapper')
-    btnWrappers.addEventListener('animationend', function() {
+    btnWrappers.addEventListener(animationEndEventName(), function() {
       self.close()
 
       self.props.elements.itens.forEach(function (item) {
@@ -74,7 +74,7 @@ var BloomingMenu = (function() {
 
       document
         .querySelector('.blooming-menu__item-btn-wrapper')
-        .removeEventListener('animationend')
+        .removeEventListener(animationEndEventName())
     })
 
     this.props.elements.itens.forEach(function (item, index_) {
@@ -193,7 +193,7 @@ var BloomingMenu = (function() {
       var x0 = 0
       var y0 = 0
 
-      // Animation
+      //
       cssRules +=
         '@keyframes expand-item-' + index + ' {' +
           '0% {' +
@@ -205,8 +205,20 @@ var BloomingMenu = (function() {
           '100% {' +
             'transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
           '}' +
+        '}' +
+        '@-webkit-keyframes expand-item-' + index + ' {' +
+          '0% {' +
+            '-webkit-transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
+          '}' +
+          '70% {' +
+            '-webkit-transform: translate(' + x2 + 'px, ' + y2 + 'px)' +
+          '}' +
+          '100% {' +
+            '-webkit-transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
+          '}' +
         '}'
 
+      //
       cssRules +=
         '@keyframes contract-item-' + index + ' {' +
           '100% {' +
@@ -218,30 +230,60 @@ var BloomingMenu = (function() {
           '0% {' +
             'transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
           '}' +
+        '}' +
+        '@-webkit-keyframes contract-item-' + index + ' {' +
+          '100% {' +
+            '-webkit-transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
+          '}' +
+          '30% {' +
+            '-webkit-transform: translate(' + x2 + 'px, ' + y2 + 'px)' +
+          '}' +
+          '0% {' +
+            '-webkit-transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
+          '}' +
         '}'
 
+      //
       cssRules +=
         '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
           'animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
-          '-webkit-animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
           'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
           'animation-name: contract-item-' + index + ';' +
           'animation-fill-mode: backwards;' +
+        '}' +
+        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
+          '-webkit-animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
+          '-webkit-animation-duration: ' + props.animationDuration + 's;' +
+          '-webkit-animation-timing-function: ease-out;' +
+          '-webkit-animation-name: contract-item-' + index + ';' +
+          '-webkit-animation-fill-mode: backwards;' +
         '}'
 
+      //
       cssRules +=
         '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
           'animation-name: expand-item-' + index + ';' +
           'animation-fill-mode: forwards;' +
+        '}' +
+        '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
+          '-webkit-animation-name: expand-item-' + index + ';' +
+          '-webkit-animation-fill-mode: forwards;' +
         '}'
 
+      //
       cssRules +=
         '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-selected {' +
           'animation-name: select-item;' +
           'animation-fill-mode: forwards;' +
           'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
+        '}' +
+        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-selected {' +
+          '-webkit-animation-name: select-item;' +
+          '-webkit-animation-fill-mode: forwards;' +
+          '-webkit-animation-duration: ' + props.animationDuration + 's;' +
+          '-webkit-animation-timing-function: ease-out;' +
         '}'
 
       cssRules +=
@@ -250,11 +292,18 @@ var BloomingMenu = (function() {
           'animation-fill-mode: forwards;' +
           'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
+        '}' +
+        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-not-selected {' +
+          '-webkit-animation-name: not-select-item;' +
+          '-webkit-animation-fill-mode: forwards;' +
+          '-webkit-animation-duration: ' + props.animationDuration + 's;' +
+          '-webkit-animation-timing-function: ease-out;' +
         '}'
 
       angleCur += angleStep
     })
 
+    //
     cssRules +=
       '@keyframes select-item {' +
         '0% {' +
@@ -265,8 +314,19 @@ var BloomingMenu = (function() {
           'transform: scale(2);' +
           'opacity: 0;' +
         '}' +
+      '}' +
+      '@-webkit-keyframes select-item {' +
+        '0% {' +
+          '-webkit-transform: scale(1);' +
+          'opacity: 1;' +
+        '}' +
+        '100% {' +
+          '-webkit-transform: scale(2);' +
+          'opacity: 0;' +
+        '}' +
       '}'
 
+    //
     cssRules +=
       '@keyframes not-select-item {' +
         '0% {' +
@@ -275,6 +335,16 @@ var BloomingMenu = (function() {
         '}' +
         '100% {' +
           'transform: scale(0);' +
+          'opacity: 0;' +
+        '}' +
+      '}' +
+      '@-webkit-keyframes not-select-item {' +
+        '0% {' +
+          '-webkit-transform: scale(1);' +
+          'opacity: 1;' +
+        '}' +
+        '100% {' +
+          '-webkit-transform: scale(0);' +
           'opacity: 0;' +
         '}' +
       '}'
@@ -288,6 +358,21 @@ var BloomingMenu = (function() {
 
   function removeElements (elements) {
     elements.container.parentNode.removeChild(elements.container)
+  }
+
+  function animationEndEventName () {
+    var animation;
+    var el = document.createElement('fakeelement');
+    var animations = {
+      'animation':'animationend',
+      'webkitAnimation':'webkitAnimationEnd'
+    }
+
+    for (animation in animations){
+      if (el.style[animation] !== undefined) {
+          return animations[animation];
+      }
+    }
   }
 
   // ---------------------------------------------------------------------------
