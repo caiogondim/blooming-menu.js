@@ -3,6 +3,11 @@
 # BloomingMenu
 AwesomeMenu made with CSS
 
+## Preview
+
+<img src="http://rawgit.com/caiogondim/blooming-menu/master/gif-preview/center.gif">
+<img src="http://rawgit.com/caiogondim/blooming-menu/master/gif-preview/bottom-left.gif">
+
 ## Credits
 - Project icon by Chamaquito Pan de Dulce
 - Menu items by [Google Material Design](https://github.com/google/material-design-icons)
