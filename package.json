@@ -1,0 +1,22 @@
+{
+  "name": "blooming-menu",
+  "version": "1.0.0",
+  "description": "<img src=\"http://rawgit.com/caiogondim/blooming-menu/master/logo/logo.svg\">",
+  "main": "src/index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/caiogondim/blooming-menu.git"
+  },
+  "author": "Caio Gondim <me@caiogondim.com> (http://caiogondim.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caiogondim/blooming-menu/issues"
+  },
+  "homepage": "https://github.com/caiogondim/blooming-menu"
+}
