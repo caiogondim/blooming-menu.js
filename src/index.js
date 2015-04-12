@@ -1,10 +1,10 @@
-var BloomingMenu = (function() {
-  'use strict';
+;(function () {
+  'use strict'
 
   function BloomingMenu (opts) {
     // Enforces new
     if (!(this instanceof BloomingMenu)) {
-      return new BloomingMenu(opts);
+      return new BloomingMenu(opts)
     }
 
     this.props = {}
@@ -19,16 +19,16 @@ var BloomingMenu = (function() {
   // Public
   // ------
 
-  BloomingMenu.prototype.render = function() {
+  BloomingMenu.prototype.render = function () {
     createElements(this.props)
     setAnimation(this.props)
     bindEventListeners(this)
-  };
+  }
 
-  BloomingMenu.prototype.remove = function() {
+  BloomingMenu.prototype.remove = function () {
     unbindEventListeners(this)
     removeElements(this)
-  };
+  }
 
   BloomingMenu.prototype.open = function () {
     this.props.elements.main.classList.add('is-active')
@@ -40,7 +40,7 @@ var BloomingMenu = (function() {
     })
 
     this.state.isOpen = true
-  };
+  }
 
   BloomingMenu.prototype.close = function () {
     this.props.elements.main.classList.remove('is-active')
@@ -52,20 +52,20 @@ var BloomingMenu = (function() {
 
     //
     var btnWrapper = document.querySelectorAll('.blooming-menu__item-btn-wrapper')
-    ;[].forEach.call(btnWrapper, function(btnWrapper) {
+    ;[].forEach.call(btnWrapper, function (btnWrapper) {
       btnWrapper.classList.remove('is-selected')
       btnWrapper.classList.remove('is-not-selected')
     })
 
     this.state.isOpen = false
-  };
+  }
 
   BloomingMenu.prototype.selectItem = function (index) {
     var self = this
 
     //
     var btnWrappers = document.querySelector('.blooming-menu__item-btn-wrapper')
-    btnWrappers.addEventListener(animationEndEventName(), function() {
+    btnWrappers.addEventListener(animationEndEventName(), function () {
       self.close()
 
       self.props.elements.itens.forEach(function (item) {
@@ -90,7 +90,7 @@ var BloomingMenu = (function() {
           .add('is-selected')
       }
     })
-  };
+  }
 
   // Private
   // -------
@@ -121,7 +121,7 @@ var BloomingMenu = (function() {
   }
 
   function createElements (props) {
-    var docFragment = document.createDocumentFragment()
+    // var docFragment = document.createDocumentFragment()
 
     //
     props.elements.styleSheet = document.createElement('style')
@@ -168,8 +168,8 @@ var BloomingMenu = (function() {
     props.fatherElement.appendChild(props.elements.container)
 
     // Prevents the first animation when the elements are rendered
-    setTimeout(function() {
-      props.elements.itens.forEach(function(item) {
+    setTimeout(function () {
+      props.elements.itens.forEach(function (item) {
         item.style.opacity = 1
       })
     }, ((props.itemAnimationDelay * props.itensNum) + props.animationDuration) * 1000)
@@ -188,8 +188,8 @@ var BloomingMenu = (function() {
       var y3 = Number((y).toFixed(2))
       var x2 = x3 * 1.2
       var y2 = y3 * 1.2
-      var x1 = x3 * 0.7
-      var y1 = y3 * 0.7
+      // var x1 = x3 * 0.7
+      // var y1 = y3 * 0.7
       var x0 = 0
       var y0 = 0
 
@@ -361,16 +361,16 @@ var BloomingMenu = (function() {
   }
 
   function animationEndEventName () {
-    var animation;
-    var el = document.createElement('fakeelement');
+    var animation
+    var el = document.createElement('fakeelement')
     var animations = {
-      'animation':'animationend',
-      'webkitAnimation':'webkitAnimationEnd'
+      'animation': 'animationend',
+      'webkitAnimation': 'webkitAnimationEnd'
     }
 
-    for (animation in animations){
+    for (animation in animations) {
       if (el.style[animation] !== undefined) {
-          return animations[animation];
+        return animations[animation]
       }
     }
   }
@@ -399,5 +399,13 @@ var BloomingMenu = (function() {
     self.props.elements.main.removeEventListener('touchstart')
   }
 
-  return BloomingMenu;
-}());
+  // Export module
+  // -------------
+
+  if (typeof module !== 'undefined' &&
+      typeof module.exports !== 'undefined') {
+    module.exports = BloomingMenu
+  } else if (typeof window !== 'undefined') {
+    window.BloomingMenu = BloomingMenu
+  }
+}())
