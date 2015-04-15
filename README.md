@@ -12,8 +12,18 @@ AwesomeMenu made with CSS
 <img src="http://rawgit.com/caiogondim/blooming-menu/master/gif-preview/bottom-left.gif">
 
 
-## API
+## Install
 
+You can install through [npm](//npmjs.com) and use [browserify](//browserify.org) to make it run on the browser.
+```bash
+npm install --save blooming-menu
+```
+
+Or just download the minified version
+[here](https://raw.githubusercontent.com/caiogondim/blooming-menu/master/build/blooming-menu.min.js).
+
+
+## API
 
 ### constructor `new BloomingMenu(opts)`
 
