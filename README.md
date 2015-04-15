@@ -18,87 +18,63 @@ AwesomeMenu made with CSS
 ### constructor
 
 - `opts.startAngle`
-
-Type: `Number`
-
-Default: `90`
+  - Type: `Number`
+  - Default: `90`
 
 
 - `opts.endAngle`
-
-Type: `Number`
-
-Default: `0`
+  - Type: `Number`
+  - Default: `0`
 
 
 - `opts.radius`
-
-Type: `Number`
-
-Default: `80`
+  - Type: `Number`
+  - Default: `80`
 
 
 - `opts.itemAnimationDelay`
-
-Type: `Number`
-
-Default: `0.04`
+  - Type: `Number`
+  - Default: `0.04`
 
 
 - `opts.animationDuration`
-
-Type: `Number`
-
-Default: `0.4`
+  - Type: `Number`
+  - Default: `0.4`
 
 
 - `opts.fatherElement`
-
-Type: `HTMLElement`
-
-Default: `document.body`
+  - Type: `HTMLElement`
+  - Default: `document.body`
 
 
 - `opts.itemWidth`
-
-Type: `Number`
-
-Default: 50
+  - Type: `Number`
+  - Default: 50
 
 
 - `opts.containerCSSClass`
-
-Type: `String`
-
-Default: `'blooming-menu__container'`
+  - Type: `String`
+  - Default: `'blooming-menu__container'`
 
 
 - `opts.mainCSSClass`
-
-Type: `String`
-
-Default: `'blooming-menu__main'`
+  - Type: `String`
+  - Default: `'blooming-menu__main'`
 
 
 - `opts.mainContent`
-
-Type: `String`
-
-Default: `'+'`
+  - Type: `String`
+  - Default: `'+'`
 
 
 - `opts.itensContainerCSSClass`
-
-Type: `String`
-
-Default: `'blooming-menu__itens'`
+  - Type: `String`
+  - Default: `'blooming-menu__itens'`
 
 
 - `opts.itensCSSClass`
-
-Type: `String`
-
-Default: `'blooming-menu__item'`
+  - Type: `String`
+  - Default: `'blooming-menu__item'`
 
 
 Every method below is an instance method.
