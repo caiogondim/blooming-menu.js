@@ -15,7 +15,15 @@ AwesomeMenu made with CSS
 ## API
 
 
-### constructor
+### constructor `new BloomingMenu(opts)`
+
+Options object passed on instantiation time, e.g.:
+```js
+var menu = new BloomingMenu({
+  startAngle: 60,
+  endAngle: 0
+})
+```
 
 - `opts.startAngle`
   - Type: `Number`
