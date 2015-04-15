@@ -23,6 +23,30 @@ Or just download the minified version
 [here](https://raw.githubusercontent.com/caiogondim/blooming-menu/master/build/blooming-menu.min.js).
 
 
+## Usage
+
+Create a new `BloomingMenu` object:
+```js
+var menu = new BloomingMenu({
+  itensNum: 8
+})
+```
+
+Render it:
+```js
+menu.render()
+```
+
+And now you can attach event listeners to the itens of the menu, just
+like a regular DOM element.
+```js
+menu.props.elements.itens.forEach(function (item, index) {
+  item.addEventListener('click', function () {
+    console.log('Item #' + index + 'was clicked')
+  })
+})
+```
+
 ## API
 
 ### constructor `new BloomingMenu(opts)`
