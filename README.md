@@ -59,6 +59,10 @@ var menu = new BloomingMenu({
 })
 ```
 
+- `opts.itensNum`
+  - Type: `Number`
+  - Required: true
+
 - `opts.startAngle`
   - Type: `Number`
   - Default: `90`
