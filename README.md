@@ -17,84 +17,84 @@ AwesomeMenu made with CSS
 
 ### constructor
 
-#### `opts.startAngle`
+- `opts.startAngle`
 
 Type: `Number`
 
 Default: `90`
 
 
-#### `opts.endAngle`
+- `opts.endAngle`
 
 Type: `Number`
 
 Default: `0`
 
 
-#### `opts.radius`
+- `opts.radius`
 
 Type: `Number`
 
 Default: `80`
 
 
-#### `opts.itemAnimationDelay`
+- `opts.itemAnimationDelay`
 
 Type: `Number`
 
 Default: `0.04`
 
 
-#### `opts.animationDuration`
+- `opts.animationDuration`
 
 Type: `Number`
 
 Default: `0.4`
 
 
-#### `opts.fatherElement`
+- `opts.fatherElement`
 
 Type: `HTMLElement`
 
 Default: `document.body`
 
 
-#### `opts.itemWidth`
+- `opts.itemWidth`
 
 Type: `Number`
 
 Default: 50
 
 
-#### `opts.containerCSSClass`
+- `opts.containerCSSClass`
 
 Type: `String`
 
 Default: `'blooming-menu__container'`
 
 
-#### `opts.mainCSSClass`
+- `opts.mainCSSClass`
 
 Type: `String`
 
 Default: `'blooming-menu__main'`
 
 
-#### `opts.mainContent`
+- `opts.mainContent`
 
 Type: `String`
 
 Default: `'+'`
 
 
-#### `opts.itensContainerCSSClass`
+- `opts.itensContainerCSSClass`
 
 Type: `String`
 
 Default: `'blooming-menu__itens'`
 
 
-#### `opts.itensCSSClass`
+- `opts.itensCSSClass`
 
 Type: `String`
 
