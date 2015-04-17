@@ -23,11 +23,15 @@
     createElements(this.props)
     setAnimation(this.props)
     bindEventListeners(this)
+
+    return this
   }
 
   BloomingMenu.prototype.remove = function () {
     unbindEventListeners(this)
     removeElements(this)
+
+    return this
   }
 
   BloomingMenu.prototype.open = function () {
@@ -40,6 +44,8 @@
     })
 
     this.state.isOpen = true
+
+    return this
   }
 
   BloomingMenu.prototype.close = function () {
@@ -58,6 +64,8 @@
     })
 
     this.state.isOpen = false
+
+    return this
   }
 
   BloomingMenu.prototype.selectItem = function (index) {
@@ -90,6 +98,8 @@
           .add('is-selected')
       }
     })
+
+    return this
   }
 
   // Private
