@@ -324,7 +324,7 @@
       '  opacity: 0.8;' +
       '}'
 
-      return cssRules
+    return cssRules
   }
 
   function injectCss (css, styleElement) {
