@@ -21,6 +21,10 @@
 
   BloomingMenu.prototype.render = function () {
     createElements(this.props)
+
+    var css = getBaseCss(this.props)
+    injectCss(css, this.props.elements.styleSheet)
+
     setAnimation(this.props)
     bindEventListeners(this)
 
@@ -183,6 +187,148 @@
         item.style.opacity = 1
       })
     }, ((props.itemAnimationDelay * props.itensNum) + props.animationDuration) * 1000)
+  }
+
+  function getBaseCss (props) {
+    var cssRules = ''
+
+    // Container
+    // ---------
+
+    cssRules +=
+      '.' + props.containerCSSClass + ',' +
+      '.' + props.containerCSSClass + ' * {' +
+      '  box-sizing: border-box;' +
+      '  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);' +
+      '  outline: none;' +
+      '  margin: 0;' +
+      '  padding: 0;' +
+      '}'
+
+    cssRules +=
+      '.' + props.containerCSSClass + ' {' +
+      ' position: absolute;' +
+      '  left: 50%;' +
+      '  top: 50%;' +
+      '  -webkit-transform: translate(-50%, -50%);' +
+      '  transform: translate(-50%, -50%);' +
+      '  width: 50px;' +
+      '  height: 50px;' +
+      '  border-radius: 50%;' +
+      '  -webkit-user-select: none;' +
+      '  -moz-user-select: none;' +
+      '  -ms-user-select: none;' +
+      '  user-select: none;' +
+      '}'
+
+    cssRules +=
+      '.' + props.containerCSSClass + ' {' +
+      '  transition: box-shadow .28s cubic-bezier(.4,0,.2,1);' +
+      '  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);' +
+      '  width: 50px;' +
+      '  height: 50px;' +
+      '  border-radius: 50%;' +
+      '}'
+
+    cssRules +=
+      '.' + props.containerCSSClass + ':hover {' +
+      '  box-shadow: 0 8px 17px 0 rgba(0,0,0,.2);' +
+      '}'
+
+    // Main
+    // ----
+
+    cssRules +=
+      '.' + props.mainCSSClass + ' {' +
+      '  border-radius: 50%;' +
+      '  width: 50px;' +
+      '  height: 50px;' +
+      '  position: absolute;' +
+      '  z-index: 1;' +
+      '  cursor: pointer;' +
+      '  transition: all .28s cubic-bezier(.4,0,.2,1);' +
+      '  border: none;' +
+      '  background-color: #A974A2;' +
+      '  color: white;' +
+      '}'
+
+    cssRules +=
+      '.' + props.mainCSSClass + '.is-active {' +
+      '  -webkit-transform: rotate(45deg);' +
+      '  transform: rotate(45deg);' +
+      '}'
+
+    cssRules +=
+      '.blooming-menu__main-content {' +
+      '  font-size: 32px;' +
+      '  line-height: 60%;' +
+      '  position: relative;' +
+      '}'
+
+    cssRules +=
+      '.blooming-menu__main.is-active .blooming-menu__main-content {' +
+      '  -webkit-transform: rotate(45deg);' +
+      '  transform: rotate(45deg);' +
+      '}'
+
+    // Itens
+    // -----
+
+    cssRules +=
+    '.' + props.itensCSSClass + ' {' +
+    '  position: absolute;' +
+    '  bottom: 5px;' +
+    '  left: 5px;' +
+    '  transition:' +
+    '    -webkit-transform .28s cubic-bezier(.4,0,.2,1),' +
+    '    opacity .28s cubic-bezier(.4,0,.2,1)' +
+    '  ;' +
+    '  transition:' +
+    '    transform .28s cubic-bezier(.4,0,.2,1),' +
+    '    opacity .28s cubic-bezier(.4,0,.2,1)' +
+    '  ;' +
+    '  width: 40px;' +
+    '  height: 40px;' +
+    '  border-radius: 50%;' +
+    '}'
+
+    cssRules +=
+      '.' + props.itensContainerCSSClass + ' {' +
+      '  list-style-type: none;' +
+      '}'
+
+    cssRules +=
+      '.blooming-menu__item-btn-wrapper {' +
+      '  width: 100%;' +
+      '  height: 100%;' +
+      '  background-color: #6B9EB8;' +
+      '  border-radius: 50%;' +
+      '}'
+
+    cssRules +=
+      '.blooming-menu__item-btn {' +
+      '  cursor: pointer;' +
+      '  border-radius: 50%;' +
+      '  border: none;' +
+      '  background-color: transparent;' +
+      '  width: 100%;' +
+      '  height: 100%;' +
+      '  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);' +
+      '  transition:' +
+      '    box-shadow .28s cubic-bezier(.4,0,.2,1),' +
+      '    opacity .28s cubic-bezier(.4,0,.2,1)' +
+      '  ;' +
+      '  background-size: 50%;' +
+      '  background-position: center center;' +
+      '  background-repeat: no-repeat;' +
+      '  opacity: 0.8;' +
+      '}'
+
+      return cssRules
+  }
+
+  function injectCss (css, styleElement) {
+    styleElement.innerHTML += css
   }
 
   function setAnimation (props) {
@@ -359,7 +505,7 @@
         '}' +
       '}'
 
-    props.elements.styleSheet.innerHTML = cssRules
+    props.elements.styleSheet.innerHTML += cssRules
   }
 
   function toRadians (angle) {
