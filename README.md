@@ -1,9 +1,10 @@
 <img src="http://rawgit.com/caiogondim/blooming-menu/master/logo/logo.svg">
 
-# BloomingMenu 
+# BloomingMenu
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-AwesomeMenu made with CSS
+A configurable and animated radial menu.
+BloomingMenu is a port of AwesomeMenu for the web.
 
 
 ## Preview
