@@ -20,10 +20,14 @@
   // ------
 
   BloomingMenu.prototype.render = function () {
+    var css = ''
+
     createElements(this.props)
 
-    var css = getBaseCss(this.props)
-    injectCss(css, this.props.elements.styleSheet)
+    if (this.props.injectBaseCSS) {
+      css = getBaseCss(this.props)
+      injectCss(css, this.props.elements.styleSheet)
+    }
 
     setAnimation(this.props)
     bindEventListeners(this)
@@ -119,6 +123,7 @@
       this.props.itensNum = props.itensNum
     }
 
+    this.props.injectBaseCSS = props.injectBaseCSS === undefined ? true : false
     this.props.startAngle = props.startAngle === undefined ? 90 : props.startAngle
     this.props.endAngle = props.endAngle === undefined ? 0 : props.endAngle
     this.props.radius = props.radius || 80

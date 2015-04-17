@@ -99,6 +99,9 @@ var menu = new BloomingMenu({
 - `opts.itensCSSClass`
   - Type: `String`
   - Default: `'blooming-menu__item'`
+- `opts.injectBaseCSS`
+  - Type: `Boolean`
+  - Default: `true`
 
 
 Every method below is an instance method.
