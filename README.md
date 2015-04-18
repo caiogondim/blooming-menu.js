@@ -84,21 +84,12 @@ var menu = new BloomingMenu({
 - `opts.itemWidth`
   - Type: `Number`
   - Default: 50
-- `opts.containerCSSClass`
+- `opts.CSSClassPrefix`
   - Type: `String`
-  - Default: `'blooming-menu__container'`
-- `opts.mainCSSClass`
-  - Type: `String`
-  - Default: `'blooming-menu__main'`
+  - Default: `'blooming-menu__'`
 - `opts.mainContent`
   - Type: `String`
   - Default: `'+'`
-- `opts.itensContainerCSSClass`
-  - Type: `String`
-  - Default: `'blooming-menu__itens'`
-- `opts.itensCSSClass`
-  - Type: `String`
-  - Default: `'blooming-menu__item'`
 - `opts.injectBaseCSS`
   - Type: `Boolean`
   - Default: `true`

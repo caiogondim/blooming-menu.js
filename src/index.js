@@ -1,6 +1,15 @@
 ;(function () {
   'use strict'
 
+  var CONTAINER_CSS_CLASS = 'container'
+  var MAIN_CONTAINER_CSS_CLASS = 'main-container'
+  var MAIN_CSS_CLASS ='main'
+  var MAIN_CONTENT_CSS_CLASS = 'main-content'
+  var ITENS_CONTAINER_CSS_CLASS = 'itens'
+  var ITEM_BTN_WRAPPER_CSS_CLASS = 'item-btn-wrapper'
+  var ITEM_CSS_CLASS = 'item'
+  var ITEM_BTN_CSS_CLASS = 'blooming-menu__item-btn'
+
   function BloomingMenu (opts) {
     // Enforces new
     if (!(this instanceof BloomingMenu)) {
@@ -132,15 +141,13 @@
     this.props.fatherElement = props.fatherElement || document.body
     this.props.elements = {}
     this.props.itemWidth = props.itemWidth || 50
-    this.props.containerCSSClass = props.containerCSSClass || 'blooming-menu__container'
-    this.props.mainCSSClass = props.mainCSSClass || 'blooming-menu__main'
     this.props.mainContent = props.mainContent || '+'
-    this.props.itensContainerCSSClass = props.itensContainerCSSClass || 'blooming-menu__itens'
-    this.props.itensCSSClass = props.itensCSSClass || 'blooming-menu__item'
+    this.props.CSSClassPrefix = props.CSSClassPrefix || 'blooming-menu__'
   }
 
   function createElements (props) {
     // var docFragment = document.createDocumentFragment()
+    var cssClassPrefix = props.CSSClassPrefix
 
     //
     props.elements.styleSheet = document.createElement('style')
@@ -148,15 +155,15 @@
 
     // Creates container element
     props.elements.container = document.createElement('div')
-    props.elements.container.classList.add(props.containerCSSClass)
+    props.elements.container.classList.add(cssClassPrefix + CONTAINER_CSS_CLASS)
 
     // Creates main element
     props.elements.mainContainer = document.createElement('div')
-    props.elements.mainContainer.classList.add('blooming-menu__main-container')
+    props.elements.mainContainer.classList.add(cssClassPrefix + MAIN_CONTAINER_CSS_CLASS)
     props.elements.main = document.createElement('button')
-    props.elements.main.classList.add(props.mainCSSClass)
+    props.elements.main.classList.add(cssClassPrefix + MAIN_CSS_CLASS)
     props.elements.mainContent = document.createElement('span')
-    props.elements.mainContent.classList.add('blooming-menu__main-content')
+    props.elements.mainContent.classList.add(cssClassPrefix + MAIN_CONTENT_CSS_CLASS)
     props.elements.mainContent.innerHTML = props.mainContent
     props.elements.mainContainer.appendChild(props.elements.main)
     props.elements.main.appendChild(props.elements.mainContent)
@@ -165,18 +172,18 @@
     // Creates itens
     props.elements.itens = []
     props.elements.itensContainer = document.createElement('ul')
-    props.elements.itensContainer.classList.add(props.itensContainerCSSClass)
+    props.elements.itensContainer.classList.add(cssClassPrefix + ITENS_CONTAINER_CSS_CLASS)
     props.elements.container.appendChild(props.elements.itensContainer)
     for (var i = 0; i < props.itensNum; i++) {
       var item = document.createElement('li')
-      item.classList.add(props.itensCSSClass)
+      item.classList.add(cssClassPrefix + ITEM_CSS_CLASS)
       item.style.opacity = 0
 
       var buttonWrapper = document.createElement('div')
-      buttonWrapper.classList.add('blooming-menu__item-btn-wrapper')
+      buttonWrapper.classList.add(cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS)
 
       var button = document.createElement('button')
-      button.classList.add('blooming-menu__item-btn')
+      button.classList.add(cssClassPrefix + ITEM_BTN_CSS_CLASS)
 
       buttonWrapper.appendChild(button)
       item.appendChild(buttonWrapper)
@@ -195,14 +202,15 @@
   }
 
   function getBaseCss (props) {
+    var cssClassPrefix = props.CSSClassPrefix
     var cssRules = ''
 
     // Container
     // ---------
 
     cssRules +=
-      '.' + props.containerCSSClass + ',' +
-      '.' + props.containerCSSClass + ' * {' +
+      '.' + cssClassPrefix + CONTAINER_CSS_CLASS + ',' +
+      '.' + cssClassPrefix + CONTAINER_CSS_CLASS + ' * {' +
       '  box-sizing: border-box;' +
       '  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);' +
       '  outline: none;' +
@@ -211,7 +219,7 @@
       '}'
 
     cssRules +=
-      '.' + props.containerCSSClass + ' {' +
+      '.' + cssClassPrefix + CONTAINER_CSS_CLASS + ' {' +
       ' position: absolute;' +
       '  left: 50%;' +
       '  top: 50%;' +
@@ -227,7 +235,7 @@
       '}'
 
     cssRules +=
-      '.' + props.containerCSSClass + ' {' +
+      '.' + cssClassPrefix + CONTAINER_CSS_CLASS + ' {' +
       '  transition: box-shadow .28s cubic-bezier(.4,0,.2,1);' +
       '  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);' +
       '  width: 50px;' +
@@ -235,16 +243,11 @@
       '  border-radius: 50%;' +
       '}'
 
-    cssRules +=
-      '.' + props.containerCSSClass + ':hover {' +
-      '  box-shadow: 0 8px 17px 0 rgba(0,0,0,.2);' +
-      '}'
-
     // Main
     // ----
 
     cssRules +=
-      '.' + props.mainCSSClass + ' {' +
+      '.' + cssClassPrefix + MAIN_CSS_CLASS + ' {' +
       '  border-radius: 50%;' +
       '  width: 50px;' +
       '  height: 50px;' +
@@ -258,20 +261,25 @@
       '}'
 
     cssRules +=
-      '.' + props.mainCSSClass + '.is-active {' +
+      '.' + cssClassPrefix + MAIN_CSS_CLASS + ':hover {' +
+      '  box-shadow: 0 8px 17px 0 rgba(0,0,0,.2);' +
+      '}'
+
+    cssRules +=
+      '.' + cssClassPrefix + MAIN_CSS_CLASS + '.is-active {' +
       '  -webkit-transform: rotate(45deg);' +
       '  transform: rotate(45deg);' +
       '}'
 
     cssRules +=
-      '.blooming-menu__main-content {' +
+      '.' + cssClassPrefix + MAIN_CONTENT_CSS_CLASS + ' {' +
       '  font-size: 32px;' +
       '  line-height: 60%;' +
       '  position: relative;' +
       '}'
 
     cssRules +=
-      '.blooming-menu__main.is-active .blooming-menu__main-content {' +
+      '.' + cssClassPrefix + MAIN_CSS_CLASS + '.is-active .' + cssClassPrefix + MAIN_CONTENT_CSS_CLASS + ' {' +
       '  -webkit-transform: rotate(45deg);' +
       '  transform: rotate(45deg);' +
       '}'
@@ -280,30 +288,37 @@
     // -----
 
     cssRules +=
-    '.' + props.itensCSSClass + ' {' +
-    '  position: absolute;' +
-    '  bottom: 5px;' +
-    '  left: 5px;' +
-    '  transition:' +
-    '    -webkit-transform .28s cubic-bezier(.4,0,.2,1),' +
-    '    opacity .28s cubic-bezier(.4,0,.2,1)' +
-    '  ;' +
-    '  transition:' +
-    '    transform .28s cubic-bezier(.4,0,.2,1),' +
-    '    opacity .28s cubic-bezier(.4,0,.2,1)' +
-    '  ;' +
-    '  width: 40px;' +
-    '  height: 40px;' +
-    '  border-radius: 50%;' +
-    '}'
+      '.' + cssClassPrefix + ITEM_CSS_CLASS + ' {' +
+      '  position: absolute;' +
+      '  bottom: 5px;' +
+      '  left: 5px;' +
+      '  transition:' +
+      '    -webkit-transform .28s cubic-bezier(.4,0,.2,1),' +
+      '    box-shadow .28s cubic-bezier(.4,0,.2,1),' +
+      '    opacity .28s cubic-bezier(.4,0,.2,1)' +
+      '  ;' +
+      '  transition:' +
+      '    transform .28s cubic-bezier(.4,0,.2,1),' +
+      '    box-shadow .28s cubic-bezier(.4,0,.2,1),' +
+      '    opacity .28s cubic-bezier(.4,0,.2,1)' +
+      '  ;' +
+      '  width: 40px;' +
+      '  height: 40px;' +
+      '  border-radius: 50%;' +
+      '}'
 
     cssRules +=
-      '.' + props.itensContainerCSSClass + ' {' +
+      '.' + cssClassPrefix + ITEM_CSS_CLASS + ':hover {' +
+      '  box-shadow: 0 8px 17px 0 rgba(0,0,0,.2);' +
+      '}'
+
+    cssRules +=
+    '.' + cssClassPrefix + ITENS_CONTAINER_CSS_CLASS + ' {' +
       '  list-style-type: none;' +
       '}'
 
     cssRules +=
-      '.blooming-menu__item-btn-wrapper {' +
+      '.' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + ' {' +
       '  width: 100%;' +
       '  height: 100%;' +
       '  background-color: #6B9EB8;' +
@@ -311,7 +326,7 @@
       '}'
 
     cssRules +=
-      '.blooming-menu__item-btn {' +
+    '.' + cssClassPrefix + ITEM_BTN_CSS_CLASS + ' {' +
       '  cursor: pointer;' +
       '  border-radius: 50%;' +
       '  border: none;' +
@@ -341,6 +356,7 @@
       (props.endAngle - props.startAngle) / (props.itensNum - 1)
     var angleCur = props.startAngle
     var cssRules = ''
+    var cssClassPrefix = props.CSSClassPrefix
 
     props.elements.itens.forEach(function (item, index) {
       var x = props.radius * Math.cos(toRadians(angleCur))
@@ -356,7 +372,7 @@
 
       //
       cssRules +=
-        '@keyframes expand-item-' + index + ' {' +
+        '@keyframes ' + cssClassPrefix + 'expand-item-' + index + ' {' +
           '0% {' +
             'transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
           '}' +
@@ -367,7 +383,7 @@
             'transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
           '}' +
         '}' +
-        '@-webkit-keyframes expand-item-' + index + ' {' +
+        '@-webkit-keyframes ' + cssClassPrefix + 'expand-item-' + index + ' {' +
           '0% {' +
             '-webkit-transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
           '}' +
@@ -381,7 +397,7 @@
 
       //
       cssRules +=
-        '@keyframes contract-item-' + index + ' {' +
+        '@keyframes ' + cssClassPrefix + 'contract-item-' + index + ' {' +
           '100% {' +
             'transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
           '}' +
@@ -392,7 +408,7 @@
             'transform: translate(' + x3 + 'px, ' + y3 + 'px)' +
           '}' +
         '}' +
-        '@-webkit-keyframes contract-item-' + index + ' {' +
+        '@-webkit-keyframes ' + cssClassPrefix + 'contract-item-' + index + ' {' +
           '100% {' +
             '-webkit-transform: translate(' + x0 + 'px, ' + y0 + 'px)' +
           '}' +
@@ -406,56 +422,56 @@
 
       //
       cssRules +=
-        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') {' +
           'animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
           'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
-          'animation-name: contract-item-' + index + ';' +
+          'animation-name: ' + cssClassPrefix + 'contract-item-' + index + ';' +
           'animation-fill-mode: backwards;' +
         '}' +
-        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') {' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') {' +
           '-webkit-animation-delay: ' + (index * props.itemAnimationDelay) + 's;' +
           '-webkit-animation-duration: ' + props.animationDuration + 's;' +
           '-webkit-animation-timing-function: ease-out;' +
-          '-webkit-animation-name: contract-item-' + index + ';' +
+          '-webkit-animation-name: ' + cssClassPrefix + 'contract-item-' + index + ';' +
           '-webkit-animation-fill-mode: backwards;' +
         '}'
 
       //
       cssRules +=
-        '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
-          'animation-name: expand-item-' + index + ';' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + '.is-active:nth-of-type(' + (index + 1) + ') {' +
+          'animation-name: ' + cssClassPrefix + 'expand-item-' + index + ';' +
           'animation-fill-mode: forwards;' +
         '}' +
-        '.' + props.itensCSSClass + '.is-active:nth-of-type(' + (index + 1) + ') {' +
-          '-webkit-animation-name: expand-item-' + index + ';' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + '.is-active:nth-of-type(' + (index + 1) + ') {' +
+          '-webkit-animation-name: ' + cssClassPrefix + 'expand-item-' + index + ';' +
           '-webkit-animation-fill-mode: forwards;' +
         '}'
 
       //
       cssRules +=
-        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-selected {' +
-          'animation-name: select-item;' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + '.is-selected {' +
+          'animation-name: ' + cssClassPrefix + 'select-item;' +
           'animation-fill-mode: forwards;' +
           'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
         '}' +
-        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-selected {' +
-          '-webkit-animation-name: select-item;' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + '.is-selected {' +
+          '-webkit-animation-name: ' + cssClassPrefix + 'select-item;' +
           '-webkit-animation-fill-mode: forwards;' +
           '-webkit-animation-duration: ' + props.animationDuration + 's;' +
           '-webkit-animation-timing-function: ease-out;' +
         '}'
 
       cssRules +=
-        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-not-selected {' +
-          'animation-name: not-select-item;' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + '.is-not-selected {' +
+          'animation-name: ' + cssClassPrefix + 'not-select-item;' +
           'animation-fill-mode: forwards;' +
           'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
         '}' +
-        '.' + props.itensCSSClass + ':nth-of-type(' + (index + 1) + ') .blooming-menu__item-btn-wrapper.is-not-selected {' +
-          '-webkit-animation-name: not-select-item;' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + '.is-not-selected {' +
+          '-webkit-animation-name: ' + cssClassPrefix + 'not-select-item;' +
           '-webkit-animation-fill-mode: forwards;' +
           '-webkit-animation-duration: ' + props.animationDuration + 's;' +
           '-webkit-animation-timing-function: ease-out;' +
@@ -466,7 +482,7 @@
 
     //
     cssRules +=
-      '@keyframes select-item {' +
+      '@keyframes ' + cssClassPrefix + 'select-item {' +
         '0% {' +
           'transform: scale(1);' +
           'opacity: 1;' +
@@ -476,7 +492,7 @@
           'opacity: 0;' +
         '}' +
       '}' +
-      '@-webkit-keyframes select-item {' +
+      '@-webkit-keyframes ' + cssClassPrefix + 'select-item {' +
         '0% {' +
           '-webkit-transform: scale(1);' +
           'opacity: 1;' +
@@ -489,7 +505,7 @@
 
     //
     cssRules +=
-      '@keyframes not-select-item {' +
+      '@keyframes ' + cssClassPrefix + 'not-select-item {' +
         '0% {' +
           'transform: scale(1);' +
           'opacity: 1;' +
@@ -499,7 +515,7 @@
           'opacity: 0;' +
         '}' +
       '}' +
-      '@-webkit-keyframes not-select-item {' +
+      '@-webkit-keyframes ' + cssClassPrefix + 'not-select-item {' +
         '0% {' +
           '-webkit-transform: scale(1);' +
           'opacity: 1;' +
