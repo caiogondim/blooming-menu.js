@@ -130,3 +130,7 @@ Latest ✔ | Latest ✔ | 9+ ✔ | Latest ✔ | 8.0+ ✔ |
 - Menu items by [Google Material Design](https://github.com/google/material-design-icons)
 - [Base16](https://github.com/chriskempson/base16) Ocean color scheme
 - This lib is a port in JavaScript of the Objective-C lib [AwesomeMenu](https://github.com/levey/AwesomeMenu)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/caiogondim/blooming-menu/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
