@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "standard",
-    "build": "gulp build"
+    "build": "gulp build",
+    "deploy:ghpages": "gulp deploy:ghpages"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/caiogondim/blooming-menu",
   "devDependencies": {
     "gulp": "^3.8.11",
+    "gulp-gh-pages": "^0.5.1",
     "gulp-header": "^1.2.2",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.2.0",

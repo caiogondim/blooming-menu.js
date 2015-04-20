@@ -2,6 +2,7 @@ var gulp = require('gulp')
 var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
 var header = require('gulp-header')
+var ghPages = require('gulp-gh-pages')
 
 var pkg = require('./package.json')
 var banner = [
@@ -21,4 +22,14 @@ gulp.task('build', function () {
     .pipe(header(banner, {pkg: pkg}))
     .pipe(rename('blooming-menu.min.js'))
     .pipe(gulp.dest('build'))
+})
+
+gulp.task('deploy:ghpages', function () {
+  gulp
+    .src('./build/blooming-menu.min.js')
+    .pipe(gulp.dest('./example/js'))
+
+  return gulp
+    .src('./example/**/*')
+    .pipe(ghPages())
 })
