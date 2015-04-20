@@ -3,7 +3,7 @@
 
   var CONTAINER_CSS_CLASS = 'container'
   var MAIN_CONTAINER_CSS_CLASS = 'main-container'
-  var MAIN_CSS_CLASS ='main'
+  var MAIN_CSS_CLASS = 'main'
   var MAIN_CONTENT_CSS_CLASS = 'main-content'
   var ITENS_CONTAINER_CSS_CLASS = 'itens'
   var ITEM_BTN_WRAPPER_CSS_CLASS = 'item-btn-wrapper'
