@@ -1,7 +1,7 @@
 <img src="http://rawgit.com/caiogondim/blooming-menu/master/logo/logo.svg">
 
 # BloomingMenu
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/caiogondim/blooming-menu/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 A configurable and animated radial menu.
 BloomingMenu is a port of AwesomeMenu for the web.
@@ -130,7 +130,4 @@ Latest ✔ | Latest ✔ | 9+ ✔ | Latest ✔ | 8.0+ ✔ |
 - Menu items by [Google Material Design](https://github.com/google/material-design-icons)
 - [Base16](https://github.com/chriskempson/base16) Ocean color scheme
 - This lib is a port in JavaScript of the Objective-C lib [AwesomeMenu](https://github.com/levey/AwesomeMenu)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/caiogondim/blooming-menu/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
