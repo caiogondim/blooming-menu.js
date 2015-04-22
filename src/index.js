@@ -8,7 +8,7 @@
   var ITENS_CONTAINER_CSS_CLASS = 'itens'
   var ITEM_BTN_WRAPPER_CSS_CLASS = 'item-btn-wrapper'
   var ITEM_CSS_CLASS = 'item'
-  var ITEM_BTN_CSS_CLASS = 'blooming-menu__item-btn'
+  var ITEM_BTN_CSS_CLASS = 'item-btn'
 
   function BloomingMenu (opts) {
     // Enforces new
