@@ -552,8 +552,8 @@
     }
   }
 
-  // ---------------------------------------------------------------------------
   // Event listeners
+  // ---------------
 
   function bindEventListeners (self) {
     self.props.elements.main.addEventListener('click', function (event) {
