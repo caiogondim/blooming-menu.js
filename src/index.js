@@ -71,13 +71,8 @@
 
     this.props.elements.itens.forEach(function (item) {
       item.classList.remove('is-active')
-    })
-
-    //
-    var btnWrapper = document.querySelectorAll('.blooming-menu__item-btn-wrapper')
-    ;[].forEach.call(btnWrapper, function (btnWrapper) {
-      btnWrapper.classList.remove('is-selected')
-      btnWrapper.classList.remove('is-not-selected')
+      item.classList.remove('is-selected')
+      item.classList.remove('is-not-selected')
     })
 
     this.state.isOpen = false
@@ -105,12 +100,10 @@
     this.props.elements.itens.forEach(function (item, index_) {
       if (index_ !== index) {
         item
-          .querySelector('.blooming-menu__item-btn-wrapper')
           .classList
           .add('is-not-selected')
       } else {
         item
-          .querySelector('.blooming-menu__item-btn-wrapper')
           .classList
           .add('is-selected')
       }
@@ -313,6 +306,12 @@
       '}'
 
     cssRules +=
+      '.' + cssClassPrefix + ITEM_CSS_CLASS + '.is-selected:hover {' +
+      '  box-shadow: 0 0 0 0;' +
+      '  transition: box-shadow 0s;' +
+      '}'
+
+    cssRules +=
     '.' + cssClassPrefix + ITENS_CONTAINER_CSS_CLASS + ' {' +
       '  list-style-type: none;' +
       '}'
@@ -450,13 +449,13 @@
 
       //
       cssRules +=
-        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + '.is-selected {' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ').is-selected .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + ' {' +
           'animation-name: ' + cssClassPrefix + 'select-item;' +
           'animation-fill-mode: forwards;' +
           'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
         '}' +
-        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + '.is-selected {' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ').is-selected .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + ' {' +
           '-webkit-animation-name: ' + cssClassPrefix + 'select-item;' +
           '-webkit-animation-fill-mode: forwards;' +
           '-webkit-animation-duration: ' + props.animationDuration + 's;' +
@@ -464,13 +463,13 @@
         '}'
 
       cssRules +=
-        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + '.is-not-selected {' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ').is-not-selected .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + ' {' +
           'animation-name: ' + cssClassPrefix + 'not-select-item;' +
           'animation-fill-mode: forwards;' +
           'animation-duration: ' + props.animationDuration + 's;' +
           'animation-timing-function: ease-out;' +
         '}' +
-        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ') .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + '.is-not-selected {' +
+        '.' + cssClassPrefix + ITEM_CSS_CLASS + ':nth-of-type(' + (index + 1) + ').is-not-selected .' + cssClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS + ' {' +
           '-webkit-animation-name: ' + cssClassPrefix + 'not-select-item;' +
           '-webkit-animation-fill-mode: forwards;' +
           '-webkit-animation-duration: ' + props.animationDuration + 's;' +
