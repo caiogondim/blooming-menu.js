@@ -22,6 +22,7 @@ gulp.task('build', function () {
     .pipe(header(banner, {pkg: pkg}))
     .pipe(rename('blooming-menu.min.js'))
     .pipe(gulp.dest('build'))
+    .pipe(gulp.dest('example/js'))
 })
 
 gulp.task('deploy:ghpages', function () {
