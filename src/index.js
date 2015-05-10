@@ -109,6 +109,8 @@
       }
     })
 
+    this.props.elements.main.classList.remove('is-active')
+
     return this
   }
 
