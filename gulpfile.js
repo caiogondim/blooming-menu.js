@@ -3,6 +3,21 @@ var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
 var header = require('gulp-header')
 var ghPages = require('gulp-gh-pages')
+var standard = require('gulp-standard')
+
+// Test
+// ----
+
+gulp.task('js-standard', function () {
+  return gulp.src(['src/index.js', './test/**', 'gulpfile.js'])
+    .pipe(standard())
+    .pipe(standard.reporter('default', {breakOnError: true}))
+})
+
+gulp.task('test', ['js-standard'])
+
+// Build
+// -----
 
 var pkg = require('./package.json')
 var banner = [
@@ -24,6 +39,9 @@ gulp.task('build', function () {
     .pipe(gulp.dest('build'))
     .pipe(gulp.dest('example/js'))
 })
+
+// Deploy
+// ------
 
 gulp.task('deploy:ghpages', function () {
   gulp
