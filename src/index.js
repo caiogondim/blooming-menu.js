@@ -5,7 +5,7 @@
   var MAIN_CONTAINER_CSS_CLASS = 'main-container'
   var MAIN_CSS_CLASS = 'main'
   var MAIN_CONTENT_CSS_CLASS = 'main-content'
-  var ITENS_CONTAINER_CSS_CLASS = 'itens'
+  var ITEMS_CONTAINER_CSS_CLASS = 'items'
   var ITEM_BTN_WRAPPER_CSS_CLASS = 'item-btn-wrapper'
   var ITEM_CSS_CLASS = 'item'
   var ITEM_BTN_CSS_CLASS = 'item-btn'
@@ -54,7 +54,7 @@
   BloomingMenu.prototype.open = function () {
     this.props.elements.main.classList.add('is-active')
 
-    this.props.elements.itens.forEach(function (item) {
+    this.props.elements.items.forEach(function (item) {
       item.style.display = 'block'
       item.classList.remove('is-selected')
       item.classList.add('is-active')
@@ -69,7 +69,7 @@
     this.props.elements.main.classList.remove('is-active')
     this.props.elements.main.classList.add('is-inactive')
 
-    this.props.elements.itens.forEach(function (item) {
+    this.props.elements.items.forEach(function (item) {
       item.classList.remove('is-active')
       item.classList.remove('is-selected')
       item.classList.remove('is-not-selected')
@@ -88,7 +88,7 @@
     btnWrappers.addEventListener(animationEndEventName(), function () {
       self.close()
 
-      self.props.elements.itens.forEach(function (item) {
+      self.props.elements.items.forEach(function (item) {
         item.style.display = 'none'
       })
 
@@ -97,7 +97,7 @@
         .removeEventListener(animationEndEventName())
     })
 
-    this.props.elements.itens.forEach(function (item, index_) {
+    this.props.elements.items.forEach(function (item, index_) {
       if (index_ !== index) {
         item
           .classList
@@ -121,10 +121,10 @@
     props = props || {}
 
     //
-    if (props.itensNum === undefined) {
-      throw new Error('`opts.itensNum` must be declared')
+    if (props.itemsNum === undefined) {
+      throw new Error('`opts.itemsNum` must be declared')
     } else {
-      this.props.itensNum = props.itensNum
+      this.props.itemsNum = props.itemsNum
     }
 
     this.props.injectBaseCSS = props.injectBaseCSS === undefined ? true : false
@@ -164,12 +164,12 @@
     props.elements.main.appendChild(props.elements.mainContent)
     props.elements.container.appendChild(props.elements.mainContainer)
 
-    // Creates itens
-    props.elements.itens = []
-    props.elements.itensContainer = document.createElement('ul')
-    props.elements.itensContainer.classList.add(cssClassPrefix + ITENS_CONTAINER_CSS_CLASS)
-    props.elements.container.appendChild(props.elements.itensContainer)
-    for (var i = 0; i < props.itensNum; i++) {
+    // Creates items
+    props.elements.items = []
+    props.elements.itemsContainer = document.createElement('ul')
+    props.elements.itemsContainer.classList.add(cssClassPrefix + ITEMS_CONTAINER_CSS_CLASS)
+    props.elements.container.appendChild(props.elements.itemsContainer)
+    for (var i = 0; i < props.itemsNum; i++) {
       var item = document.createElement('li')
       item.classList.add(cssClassPrefix + ITEM_CSS_CLASS)
       item.style.opacity = 0
@@ -182,18 +182,18 @@
 
       buttonWrapper.appendChild(button)
       item.appendChild(buttonWrapper)
-      props.elements.itensContainer.appendChild(item)
-      props.elements.itens.push(item)
+      props.elements.itemsContainer.appendChild(item)
+      props.elements.items.push(item)
     }
 
     props.fatherElement.appendChild(props.elements.container)
 
     // Prevents the first animation when the elements are rendered
     setTimeout(function () {
-      props.elements.itens.forEach(function (item) {
+      props.elements.items.forEach(function (item) {
         item.style.opacity = 1
       })
-    }, ((props.itemAnimationDelay * props.itensNum) + props.animationDuration) * 1000)
+    }, ((props.itemAnimationDelay * props.itemsNum) + props.animationDuration) * 1000)
   }
 
   function getBaseCss (props) {
@@ -279,7 +279,7 @@
       '  transform: rotate(45deg);' +
       '}'
 
-    // Itens
+    // Items
     // -----
 
     cssRules +=
@@ -314,7 +314,7 @@
       '}'
 
     cssRules +=
-    '.' + cssClassPrefix + ITENS_CONTAINER_CSS_CLASS + ' {' +
+    '.' + cssClassPrefix + ITEMS_CONTAINER_CSS_CLASS + ' {' +
       '  list-style-type: none;' +
       '}'
 
@@ -354,12 +354,12 @@
 
   function setAnimation (props) {
     var angleStep =
-      (props.endAngle - props.startAngle) / (props.itensNum - 1)
+      (props.endAngle - props.startAngle) / (props.itemsNum - 1)
     var angleCur = props.startAngle
     var cssRules = ''
     var cssClassPrefix = props.CSSClassPrefix
 
-    props.elements.itens.forEach(function (item, index) {
+    props.elements.items.forEach(function (item, index) {
       var x = props.radius * Math.cos(toRadians(angleCur))
       var y = props.radius * Math.sin(toRadians(angleCur))
       var x3 = Number((x).toFixed(2))
@@ -565,7 +565,7 @@
       }
     })
 
-    self.props.elements.itens.forEach(function (item, index) {
+    self.props.elements.items.forEach(function (item, index) {
       item.addEventListener('click', function (event) {
         self.selectItem(index)
       })

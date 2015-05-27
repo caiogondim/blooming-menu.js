@@ -29,7 +29,7 @@ Or just download the minified version
 Create a new `BloomingMenu` object:
 ```js
 var menu = new BloomingMenu({
-  itensNum: 8
+  itemsNum: 8
 })
 ```
 
@@ -38,10 +38,10 @@ Render it:
 menu.render()
 ```
 
-And now you can attach event listeners to the itens of the menu, just
+And now you can attach event listeners to the items of the menu, just
 like a regular DOM element.
 ```js
-menu.props.elements.itens.forEach(function (item, index) {
+menu.props.elements.items.forEach(function (item, index) {
   item.addEventListener('click', function () {
     console.log('Item #' + index + 'was clicked')
   })
@@ -60,7 +60,7 @@ var menu = new BloomingMenu({
 })
 ```
 
-- `opts.itensNum`
+- `opts.itemsNum`
   - Type: `Number`
   - Required: true
 - `opts.startAngle`
