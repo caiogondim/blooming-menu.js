@@ -124,6 +124,13 @@ Select programatically the `num` item of the menu.
 --- | --- | --- | --- | --- |
 Latest ✔ | Latest ✔ | 9+ ✔ | Latest ✔ | 8.0+ ✔ |
 
+## Donating
+
+If you found this library useful and are willing to donate, transfer some
+bitcoins to `1BqqKiZA8Tq43CdukdBEwCdDD42jxuX9UY` or through the
+[URL](https://www.coinbase.com/caiogondim) https://www.coinbase.com/caiogondim
+
+Or via [PayPal.me](https://www.paypal.me/caiogondim) https://www.paypal.me/caiogondim.
 
 ## Credits
 - Project icon by Chamaquito Pan de Dulce
