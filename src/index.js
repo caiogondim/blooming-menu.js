@@ -84,7 +84,7 @@
     var self = this
 
     //
-    var btnWrappers = document.querySelector('.blooming-menu__item-btn-wrapper')
+    var btnWrappers = document.querySelector('.' + self.props.CSSClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS)
     btnWrappers.addEventListener(animationEndEventName(), function () {
       self.close()
 
@@ -93,7 +93,7 @@
       })
 
       document
-        .querySelector('.blooming-menu__item-btn-wrapper')
+        .querySelector('.' + self.props.CSSClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS)
         .removeEventListener(animationEndEventName())
     })
 
