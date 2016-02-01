@@ -1,6 +1,6 @@
 {
   "name": "blooming-menu",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A configurable and animated radial menu for the web",
   "main": "build/blooming-menu.min.js",
   "directories": {
