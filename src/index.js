@@ -83,20 +83,25 @@
   BloomingMenu.prototype.selectItem = function (index) {
     var self = this
 
-    //
     var btnWrappers = document.querySelector('.' + self.props.CSSClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS)
-    btnWrappers.addEventListener(animationEndEventName(), function () {
+    var closeMenu = function () {
+      // Close the menu
       self.close()
 
+      // Hide all the menu items
       self.props.elements.items.forEach(function (item) {
         item.style.display = 'none'
       })
 
+      // Unbind the event listeners on `animationend`
       document
         .querySelector('.' + self.props.CSSClassPrefix + ITEM_BTN_WRAPPER_CSS_CLASS)
-        .removeEventListener(animationEndEventName())
-    })
+        .removeEventListener(animationEndEventName(), closeMenu)
+    }
+    btnWrappers.addEventListener(animationEndEventName(), closeMenu)
 
+    // Adding classes triggers an `animationend` event when the CSS animations
+    // end, triggering the closeMenu callback.
     this.props.elements.items.forEach(function (item, index_) {
       if (index_ !== index) {
         item
@@ -534,8 +539,8 @@
     return angle * (Math.PI / 180)
   }
 
-  function removeElements (elements) {
-    elements.container.parentNode.removeChild(elements.container)
+  function removeElements (self) {
+    self.props.elements.container.parentNode.removeChild(self.props.elements.container)
   }
 
   function animationEndEventName () {
@@ -556,25 +561,39 @@
   // Event listeners
   // ---------------
 
-  function bindEventListeners (self) {
-    self.props.elements.main.addEventListener('click', function (event) {
-      if (self.state.isOpen) {
-        self.close()
-      } else {
-        self.open()
-      }
-    })
+  // If the menu is open, close it. If it's closed, open it.
+  function handleMenuClick () {
+    this.state.isOpen ? this.close() : this.open()
+  }
 
+  // Select a menu item from the menu
+  function handleItemClick (_this, index) {
+    return function () { _this.selectItem(index) }
+  }
+
+  function bindEventListeners (self) {
+    self._handlers = {}
+
+    // Handle clicks to the main menu button
+    self._handlers.menuClick = handleMenuClick.bind(self)
+    self.props.elements.main.addEventListener('click', self._handlers.menuClick)
+
+    // Handle clicks to the menu items
     self.props.elements.items.forEach(function (item, index) {
-      item.addEventListener('click', function (event) {
-        self.selectItem(index)
-      })
+      var fn
+      self._handlers['item' + index] = fn = handleItemClick(self, index)
+      item.addEventListener('click', fn)
     })
   }
 
   function unbindEventListeners (self) {
-    self.props.elements.main.removeEventListener('click')
-    self.props.elements.main.removeEventListener('touchstart')
+    // unbind primary menu button
+    self.props.elements.main.removeEventListener('click', self._handlers.menuClick)
+
+    // unbind menu items
+    self.props.elements.items.forEach(function (item, index) {
+      item.removeEventListener('click', self._handlers['item' + index])
+    })
   }
 
   // Export module
