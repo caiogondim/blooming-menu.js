@@ -9,7 +9,9 @@
   "scripts": {
     "test": "gulp test",
     "build": "gulp build",
-    "deploy:ghpages": "gulp deploy:ghpages"
+    "deploy:ghpages": "gulp deploy:ghpages",
+    "preversion": "npm test",
+    "version": "npm run build"
   },
   "repository": {
     "type": "git",
