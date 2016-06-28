@@ -1,6 +1,6 @@
 {
   "name": "blooming-menu",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A configurable and animated radial menu for the web",
   "main": "build/blooming-menu.min.js",
   "directories": {
@@ -11,7 +11,7 @@
     "build": "gulp build",
     "deploy:ghpages": "gulp deploy:ghpages",
     "preversion": "npm test",
-    "version": "npm run build"
+    "version": "npm run build && git add ."
   },
   "repository": {
     "type": "git",
