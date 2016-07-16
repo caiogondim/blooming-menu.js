@@ -137,3 +137,9 @@ Or via [PayPal.me](https://www.paypal.me/caiogondim) https://www.paypal.me/caiog
 - Menu items by [Google Material Design](https://github.com/google/material-design-icons)
 - [Base16](https://github.com/chriskempson/base16) Ocean color scheme
 - This lib is a port in JavaScript of the Objective-C lib [AwesomeMenu](https://github.com/levey/AwesomeMenu)
+ 
+---
+
+[caiogondim.com](https://caiogondim.com) &nbsp;&middot;&nbsp;
+GitHub [@caiogondim](https://github.com/caiogondim) &nbsp;&middot;&nbsp;
+Twitter [@caio_gondim](https://twitter.com/caio_gondim)
