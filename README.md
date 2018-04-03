@@ -1,7 +1,8 @@
 <img src="http://rawgit.com/caiogondim/blooming-menu/master/logo/logo.svg">
 
-<h1 align="center">blooming-menu.js</h1>
-<div align="center">
+# blooming-menu
+
+<div>
   <a href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat"></a>
 </div>
 
@@ -140,7 +141,7 @@ Or via [PayPal.me](https://www.paypal.me/caiogondim) https://www.paypal.me/caiog
 - Menu items by [Google Material Design](https://github.com/google/material-design-icons)
 - [Base16](https://github.com/chriskempson/base16) Ocean color scheme
 - This lib is a port in JavaScript of the Objective-C lib [AwesomeMenu](https://github.com/levey/AwesomeMenu)
- 
+
 ---
 
 [caiogondim.com](https://caiogondim.com) &nbsp;&middot;&nbsp;
