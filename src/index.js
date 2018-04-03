@@ -132,7 +132,7 @@
       this.props.itemsNum = props.itemsNum
     }
 
-    this.props.injectBaseCSS = props.injectBaseCSS === undefined ? true : false
+    this.props.injectBaseCSS = props.injectBaseCSS === undefined
     this.props.startAngle = props.startAngle === undefined ? 90 : props.startAngle
     this.props.endAngle = props.endAngle === undefined ? 0 : props.endAngle
     this.props.radius = props.radius || 80
